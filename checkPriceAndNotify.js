@@ -39,7 +39,7 @@ async function checkPriceAndNotify() {
 const startPriceCheckingInterval = () => {
   checkPriceAndNotify();
   // Set up the interval to call checkPriceAndNotify periodically
-  const CHECK_INTERVAL = 10 * 1000; // 10 seconds
+  const CHECK_INTERVAL = 10 * 60 * 1000; // 10 minutes
   setInterval(checkPriceAndNotify, CHECK_INTERVAL);
 };
 
