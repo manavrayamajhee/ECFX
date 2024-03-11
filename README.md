@@ -4,23 +4,23 @@
 * How to configure and use the application
 
 - Step 1: **Make sure you have Node installed in your system.**
-  Windows:
-  Visit the official Node.js website: Node.js Downloads.
-  Download the Windows installer (.msi file).
-  Double-click the downloaded file and follow the installation wizard instructions.
-  macOS:
-  Visit the official Node.js website: Node.js Downloads.
-  Download the macOS installer (.pkg file).
-  Double-click the downloaded file and follow the installation wizard instructions.
-  Linux:
-  You can install Node.js using your distribution's package manager, such as apt, yum, or dnf, depending on your Linux distribution. For example, on Ubuntu/Debian:
-  sudo apt update
-  sudo apt install nodejs npm
-- Step 2: ** Install the required dev dependencies using **
+  - Windows:
+    Visit the official Node.js website: Node.js Downloads.
+    Download the Windows installer (.msi file).
+    Double-click the downloaded file and follow the installation wizard instructions.
+    macOS:
+    Visit the official Node.js website: Node.js Downloads.
+    Download the macOS installer (.pkg file).
+    Double-click the downloaded file and follow the installation wizard instructions.
+    Linux:
+    You can install Node.js using your distribution's package manager, such as apt, yum, or dnf, depending on your Linux distribution. For example, on Ubuntu/Debian:
+    sudo apt update
+    sudo apt install nodejs npm
+- Step 2: **Install the required dev dependencies using**
   npm install
-- Step 3: ** To run the program locally and get desktop notifications **
+- Step 3: **To run the program locally and get desktop notifications**
   node Pricechecker.js
-  ** For Testing: npm test **
+  **For Testing: npm test**
 
 * A brief discussion of any challenges faced and how they were overcome
   At first without providing user-agent amazon was returning an html with fake price of the item. Providing user-agents identifies these requests as requests from a browser and improves functionality. Figuring out correct testing strategy was complicated as it needed to mimick the changing of the price in real-time.
