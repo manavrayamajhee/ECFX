@@ -3,7 +3,7 @@
 
 * How to configure and use the application
 
-- Step 1: ** Make sure you have Node installed in your system. **
+- Step 1: **Make sure you have Node installed in your system.**
   Windows:
   Visit the official Node.js website: Node.js Downloads.
   Download the Windows installer (.msi file).
