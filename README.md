@@ -17,10 +17,10 @@
     sudo apt update
     sudo apt install nodejs npm
 - Step 2: **Install the required dev dependencies using**
-  npm install
+  - npm install
 - Step 3: **To run the program locally and get desktop notifications**
-  node Pricechecker.js
-  **For Testing: npm test**
+  - node Pricechecker.js
+    **For Testing: npm test**
 
 * A brief discussion of any challenges faced and how they were overcome
   At first without providing user-agent amazon was returning an html with fake price of the item. Providing user-agents identifies these requests as requests from a browser and improves functionality. Figuring out correct testing strategy was complicated as it needed to mimick the changing of the price in real-time.
