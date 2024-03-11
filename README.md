@@ -23,10 +23,11 @@
     **For Testing: npm test**
 
 * A brief discussion of any challenges faced and how they were overcome
-  At first without providing user-agent amazon was returning an html with fake price of the item. Providing user-agents identifies these requests as requests from a browser and improves functionality. Figuring out correct testing strategy was complicated as it needed to mimick the changing of the price in real-time.
+
+  - At first without providing user-agent amazon was returning an html with fake price of the item. Providing user-agents identifies these requests as requests from a browser and improves functionality. Figuring out correct testing strategy was complicated as it needed to mimick the changing of the price in real-time.
 
 * Any additional features implemented beyond the basic requirements and / or any extension to the project that is desired
   WIP
 
 * Any details on testing performed as part of the project to ensure the project meets the requirements
-  For proper testing of notification being sent during price drop events i wrote automated tests which can be ran by using npm test. This test asserts if notifications were sent to users when price dropped.
+  - For proper testing of notification being sent during price drop events i wrote automated tests which can be ran by using npm test. This test asserts if notifications were sent to users when price dropped.
