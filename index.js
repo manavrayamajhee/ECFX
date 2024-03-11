@@ -5,7 +5,6 @@ const path = require("path");
 const fs = require("fs");
 const { getRandomUserAgent, getHeaderForLogging, Events } = require("./util");
 
-const PORT = process.env.PORT || 3000;
 const AMAZON_URL =
   "https://www.amazon.com/Apple-2022-10-9-inch-iPad-Wi-Fi/dp/B0BJLXMVMV/";
 
