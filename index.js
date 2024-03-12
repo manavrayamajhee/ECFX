@@ -1,4 +1,3 @@
-const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const path = require("path");
@@ -68,10 +67,8 @@ function writeToLog(currentPrice, previousPrice, event) {
     const fileExists = fs.existsSync(logFilePath);
     const isFileEmpty = fileExists ? fs.statSync(logFilePath).size === 0 : true;
     const eventDetails =
-      event === Events.PRICE_CHECK
-        ? `Checking price`
-        : `Price changed from ${previousPrice}-${currentPrice}`;
-    const logEntryString = `${timestamp} - ${event} - ${eventDetails}`;
+      event === Events.PRICE_CHECK ? `Checking price` : `Price changed from`;
+    const logEntryString = `${timestamp} - ${event} - ${eventDetails} ${previousPrice}-${currentPrice}`;
 
     // Append data to the log file
     fs.appendFileSync(

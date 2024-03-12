@@ -7,7 +7,7 @@ let lastPrice = null;
 async function checkPriceAndNotify() {
   const currentPrice = await scrapePrice(),
     previousPrice = lastPrice;
-  if (currentPrice !== null) {
+  if (currentPrice !== null && previousPrice !== null) {
     console.log(
       `Current-price:${currentPrice}, Previous-price:${previousPrice}`
     );
@@ -20,9 +20,9 @@ async function checkPriceAndNotify() {
         message: `The price of the iPad has changed to $${currentPrice} from $${previousPrice}`,
       });
       eventType = Events.NOTIFICATION;
-    } else if (priceUp && previousPrice) {
+    } else if (priceUp) {
       eventType = Events.PRICE_CHANGE_UP;
-    } else if (previousPrice) {
+    } else {
       eventType = Events.PRICE_CHECK;
     }
 
@@ -32,14 +32,14 @@ async function checkPriceAndNotify() {
         writeToLog(currentPrice, previousPrice, Events.PRICE_DROP);
       }
     }
-    lastPrice = currentPrice;
   }
+  lastPrice = currentPrice;
 }
 
 const startPriceCheckingInterval = () => {
   checkPriceAndNotify();
   // Set up the interval to call checkPriceAndNotify periodically
-  const CHECK_INTERVAL = 10 * 60 * 1000; // 10 minutes
+  const CHECK_INTERVAL = 10 * 1000; // 10 minutes
   setInterval(checkPriceAndNotify, CHECK_INTERVAL);
 };
 
