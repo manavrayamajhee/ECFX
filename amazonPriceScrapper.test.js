@@ -1,45 +1,54 @@
-const notifier = require("node-notifier");
-// Import the function to test
-const { checkPriceAndNotify } = require("./checkPriceAndNotify");
-// Mock the scrapePrice function and randomize price being scraped from amazon
-jest.mock("./index", () => {
-  const originalModule = jest.requireActual("./index");
-  return {
-    ...originalModule,
-    scrapePrice: () => Math.random() * 1000,
-  };
-});
-// Mocking Axios and notifier, fs.writeFileSync
+const axios = require("axios");
+const { scrapePrice } = require("./index");
 jest.mock("axios");
-jest.mock("fs");
-jest.mock("node-notifier", () => ({
-  notify: () => {
-    console.log("Notification Sent");
-    return {
-      message: "The price of the iPad has changed to $__ from $__",
-      title: "iPad Price Alert",
+
+describe("scrapePrice", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it("should scrape the price correctly", async () => {
+    const mockHtml = `
+      <div id="corePriceDisplay_desktop_feature_div">
+        <span class="a-price-whole">10</span>
+        <span class="a-price-fraction">99</span>
+      </div>
+    `;
+    const mockResponse = {
+      data: mockHtml,
     };
-  },
-}));
+    axios.get.mockResolvedValue(mockResponse);
 
-describe("Price Checker App", () => {
-  it("should check price drops and notify", async () => {
-    const notifySpy = jest.spyOn(notifier, "notify");
+    const price = await scrapePrice();
+    expect(price).toEqual(10.99);
+  });
 
-    for (let i = 0; i < 100; i++) {
-      await checkPriceAndNotify();
+  it("should handle alternative price scraping when specific classes are not found", async () => {
+    const mockHtml = `
+      <div id="corePrice_feature_div">
+        <span class="a-offscreen">$9.99</span>
+      </div>
+    `;
+    const mockResponse = {
+      data: mockHtml,
+    };
+    axios.get.mockResolvedValue(mockResponse);
 
-      if (notifySpy.mock.calls.length > 0) {
-        expect(notifySpy).toHaveBeenCalledWith({
-          message: expect.stringMatching(
-            "The price of the iPad has changed to"
-          ),
-          title: "iPad Price Alert",
-        });
-        break; // Exit the loop if notification is sent
-      }
-    }
+    const price = await scrapePrice();
+    expect(price).toEqual(9.99);
+  });
 
-    expect(notifySpy).toHaveBeenCalled();
+  it("should return null and log error when scraping fails", async () => {
+    const errorMessage = "Failed to fetch data";
+    axios.get.mockRejectedValue(new Error(errorMessage));
+
+    console.error = jest.fn();
+
+    const price = await scrapePrice();
+    expect(price).toBeNull();
+    expect(console.error).toHaveBeenCalledWith(
+      "Error scraping price:",
+      new Error(errorMessage)
+    );
   });
 });
